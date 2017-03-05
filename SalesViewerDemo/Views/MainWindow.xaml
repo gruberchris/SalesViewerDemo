@@ -3,13 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SalesViewerDemo"
+        xmlns:local="clr-namespace:SalesViewerDemo.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <ComboBox x:Name="salesOrderComboBox" HorizontalAlignment="Left" Margin="124,21,0,0" VerticalAlignment="Top" Width="168"/>
+        <Grid.DataContext>
+            <local:MainWindowViewModel />
+        </Grid.DataContext>
+        <ComboBox x:Name="salesOrderComboBox" HorizontalAlignment="Left" Margin="124,21,0,0" VerticalAlignment="Top" Width="168" ItemsSource="{Binding Path=SalesOrders}" DisplayMemberPath="SalesOrderNumber" SelectedValuePath="SalesOrderNumber" SelectedValue="OrderItems" />
         <Label x:Name="salesOrderLabel" Content="Sales Order" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="orderItemDataGrid" HorizontalAlignment="Left" Margin="22,63,0,0" VerticalAlignment="Top" Height="181" Width="469"/>
+        <DataGrid x:Name="orderItemDataGrid" HorizontalAlignment="Left" Margin="22,63,0,0" VerticalAlignment="Top" Height="181" Width="469" ItemsSource="{Binding Path=SalesOrders.CurrentItem.OrderItems}" />
+        <Label x:Name="totalCost" HorizontalAlignment="Left" Margin="102,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalCost, UpdateSourceTrigger=PropertyChanged}" />
+        <Label x:Name="totalPrice" HorizontalAlignment="Left" Margin="255,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalPrice, UpdateSourceTrigger=PropertyChanged}" />
+        <Label x:Name="totalMargin" HorizontalAlignment="Left" Margin="425,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalMargin, UpdateSourceTrigger=PropertyChanged}" />
+        <Label x:Name="totalCostLabel" Content="Total Cost" HorizontalAlignment="Left" Margin="22,269,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="totalPriceLabel" Content="Total Price" HorizontalAlignment="Left" Margin="175,269,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="totalMarginLabel" Content="Total Margin" HorizontalAlignment="Left" Margin="339,269,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="totalOrderItemsLabel" Content="Total Items" HorizontalAlignment="Left" Margin="331,21,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="totalOrderItems" HorizontalAlignment="Left" Margin="404,21,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalOrderItems, UpdateSourceTrigger=PropertyChanged}" />
 
     </Grid>
 </Window>

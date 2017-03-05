@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalesViewerDemo.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace SalesViewerDemo.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            //var viewModel = orderItemDataGrid.DataContext as MainWindowViewModel;
+            //viewModel.LoadSalesOrders();
         }
     }
 }
