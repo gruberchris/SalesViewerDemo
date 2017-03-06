@@ -12,8 +12,8 @@
         </StackPanel.DataContext>
 
         <StackPanel Orientation="Horizontal">
-            <Label x:Name="salesOrderLabel" Margin="10" Content="Sales Order" Width="100" />
-            <ComboBox x:Name="salesOrderComboBox" Margin="12" Width="100" ItemsSource="{Binding Path=SalesOrders}" DisplayMemberPath="SalesOrderNumber" SelectedValuePath="SalesOrderNumber" SelectedValue="OrderItems" />
+            <Label x:Name="salesOrderLabel" Margin="10" Content="Sales Order" Width="100" IsTabStop="False" />
+            <ComboBox x:Name="salesOrderComboBox" Margin="12" Width="100" ItemsSource="{Binding Path=SalesOrders}" DisplayMemberPath="SalesOrderNumber" SelectedValuePath="SalesOrderNumber" SelectedValue="OrderItems" IsTabStop="False" />
         </StackPanel>
         
 
@@ -30,14 +30,14 @@
                 <DataGridTemplateColumn Header="Quantity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Price">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="1" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -53,14 +53,14 @@
                     <Setter Property="Width" Value="100"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <Label x:Name="totalCostLabel" Content="Total Cost" DockPanel.Dock="Bottom"/>
-            <Label x:Name="totalCost" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalCost, UpdateSourceTrigger=PropertyChanged}" />
-            <Label x:Name="totalPriceLabel" Content="Total Price" DockPanel.Dock="Bottom"/>
-            <Label x:Name="totalPrice" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalPrice, UpdateSourceTrigger=PropertyChanged}" />
-            <Label x:Name="totalMarginLabel" Content="Total Margin" DockPanel.Dock="Bottom"/>
-            <Label x:Name="totalMargin" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalMargin, UpdateSourceTrigger=PropertyChanged}" />
-            <Label x:Name="totalOrderItemsLabel" Content="Total Items" DockPanel.Dock="Bottom"/>
-            <Label x:Name="totalOrderItems" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalOrderItems, UpdateSourceTrigger=PropertyChanged}" />
+            <Label x:Name="totalCostLabel" Content="Total Cost" DockPanel.Dock="Bottom" IsTabStop="False"/>
+            <Label x:Name="totalCost" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalCost, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" />
+            <Label x:Name="totalPriceLabel" Content="Total Price" DockPanel.Dock="Bottom" IsTabStop="False"/>
+            <Label x:Name="totalPrice" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalPrice, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" />
+            <Label x:Name="totalMarginLabel" Content="Total Margin" DockPanel.Dock="Bottom" IsTabStop="False"/>
+            <Label x:Name="totalMargin" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalMargin, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" />
+            <Label x:Name="totalOrderItemsLabel" Content="Total Items" DockPanel.Dock="Bottom" IsTabStop="False"/>
+            <Label x:Name="totalOrderItems" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalOrderItems, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" />
         </StackPanel>
     </StackPanel>
 </Window>
