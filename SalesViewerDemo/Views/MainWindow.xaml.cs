@@ -24,9 +24,6 @@ namespace SalesViewerDemo.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            //var viewModel = orderItemDataGrid.DataContext as MainWindowViewModel;
-            //viewModel.LoadSalesOrders();
         }
     }
 }

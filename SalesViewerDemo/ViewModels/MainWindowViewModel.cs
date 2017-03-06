@@ -61,11 +61,8 @@ namespace SalesViewerDemo.ViewModels
 
             // Set view model's bindable properties with sales order data
             SalesOrders = new ListCollectionView(tempSalesOrderModels);
-            SelectableSalesOrders = new ReadOnlyCollection<string>(tempSelectableSalesOrders);
         }
 
         public ICollectionView SalesOrders { get; private set; }
-
-        public IReadOnlyCollection<string> SelectableSalesOrders { get; private set; }
     }
 }

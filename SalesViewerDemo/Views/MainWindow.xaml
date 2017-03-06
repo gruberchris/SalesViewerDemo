@@ -6,21 +6,61 @@
         xmlns:local="clr-namespace:SalesViewerDemo.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.DataContext>
+    <StackPanel>
+        <StackPanel.DataContext>
             <local:MainWindowViewModel />
-        </Grid.DataContext>
-        <ComboBox x:Name="salesOrderComboBox" HorizontalAlignment="Left" Margin="124,21,0,0" VerticalAlignment="Top" Width="168" ItemsSource="{Binding Path=SalesOrders}" DisplayMemberPath="SalesOrderNumber" SelectedValuePath="SalesOrderNumber" SelectedValue="OrderItems" />
-        <Label x:Name="salesOrderLabel" Content="Sales Order" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="orderItemDataGrid" HorizontalAlignment="Left" Margin="22,63,0,0" VerticalAlignment="Top" Height="181" Width="469" ItemsSource="{Binding Path=SalesOrders.CurrentItem.OrderItems}" />
-        <Label x:Name="totalCost" HorizontalAlignment="Left" Margin="102,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalCost, UpdateSourceTrigger=PropertyChanged}" />
-        <Label x:Name="totalPrice" HorizontalAlignment="Left" Margin="255,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalPrice, UpdateSourceTrigger=PropertyChanged}" />
-        <Label x:Name="totalMargin" HorizontalAlignment="Left" Margin="425,269,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalMargin, UpdateSourceTrigger=PropertyChanged}" />
-        <Label x:Name="totalCostLabel" Content="Total Cost" HorizontalAlignment="Left" Margin="22,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalPriceLabel" Content="Total Price" HorizontalAlignment="Left" Margin="175,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalMarginLabel" Content="Total Margin" HorizontalAlignment="Left" Margin="339,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalOrderItemsLabel" Content="Total Items" HorizontalAlignment="Left" Margin="331,21,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalOrderItems" HorizontalAlignment="Left" Margin="404,21,0,0" VerticalAlignment="Top" Content="{Binding Path=SalesOrders.CurrentItem.TotalOrderItems, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel.DataContext>
 
-    </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Label x:Name="salesOrderLabel" Margin="10" Content="Sales Order" Width="100" />
+            <ComboBox x:Name="salesOrderComboBox" Margin="12" Width="100" ItemsSource="{Binding Path=SalesOrders}" DisplayMemberPath="SalesOrderNumber" SelectedValuePath="SalesOrderNumber" SelectedValue="OrderItems" />
+        </StackPanel>
+        
+
+        <DataGrid x:Name="orderItemDataGrid" AutoGenerateColumns="False" MaxHeight="1000" Width="Auto" ItemsSource="{Binding Path=SalesOrders.CurrentItem.OrderItems}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Number" Binding="{Binding ItemNumber}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding ItemDescription}" MaxWidth="1000">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Quantity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Price">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
+                <DataGridTextColumn Header="Margin" Binding="{Binding Margin}" />
+                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Width" Value="100"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Label x:Name="totalCostLabel" Content="Total Cost" DockPanel.Dock="Bottom"/>
+            <Label x:Name="totalCost" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalCost, UpdateSourceTrigger=PropertyChanged}" />
+            <Label x:Name="totalPriceLabel" Content="Total Price" DockPanel.Dock="Bottom"/>
+            <Label x:Name="totalPrice" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalPrice, UpdateSourceTrigger=PropertyChanged}" />
+            <Label x:Name="totalMarginLabel" Content="Total Margin" DockPanel.Dock="Bottom"/>
+            <Label x:Name="totalMargin" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalMargin, UpdateSourceTrigger=PropertyChanged}" />
+            <Label x:Name="totalOrderItemsLabel" Content="Total Items" DockPanel.Dock="Bottom"/>
+            <Label x:Name="totalOrderItems" DockPanel.Dock="Bottom" Content="{Binding Path=SalesOrders.CurrentItem.TotalOrderItems, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+    </StackPanel>
 </Window>

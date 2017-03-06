@@ -19,8 +19,6 @@ namespace SalesViewerDemo.Models
 
         private decimal _cost;
 
-        private decimal _margin;
-
         public string ItemNumber
         {
             get { return _itemNumber; }
@@ -36,25 +34,42 @@ namespace SalesViewerDemo.Models
         public int Quantity
         {
             get { return _quantity; }
-            set { SetProperty(ref _quantity, value); }
+            set
+            {
+                if(SetProperty(ref _quantity, value))
+                {
+                    this.OnPropertyChanged("Subtotal");
+                }
+            }
         }
 
         public decimal Price
         {
             get { return _price; }
-            set { SetProperty(ref _price, value); }
+            set
+            {
+                if(SetProperty(ref _price, value))
+                {
+                    this.OnPropertyChanged("Margin");
+                    this.OnPropertyChanged("Subtotal");
+                }
+            }
         }
 
         public decimal Cost
         {
             get { return _cost; }
-            set { SetProperty(ref _cost, value); }
+            set
+            {
+                if(SetProperty(ref _cost, value))
+                {
+                    this.OnPropertyChanged("Margin");
+                }
+            }
         }
 
-        public decimal Margin
-        {
-            get { return _margin; }
-            set { SetProperty(ref _margin, value); }
-        }
+        public decimal Margin { get { return Price - Cost; } }
+
+        public decimal Subtotal { get { return Quantity * Price; } }
     }
 }

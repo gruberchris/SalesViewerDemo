@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 namespace SalesViewerDemo.Models
@@ -27,6 +28,11 @@ namespace SalesViewerDemo.Models
 
         private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            CalculateSalesOrderSums();
+        }
+
+        private void CalculateSalesOrderSums()
+        {
             TotalOrderItems = _orderItems.Count;
             TotalPrice = _orderItems.Sum(i => i.Price);
             TotalCost = _orderItems.Sum(i => i.Cost);
@@ -46,10 +52,21 @@ namespace SalesViewerDemo.Models
             {
                 if (!_orderItems.Equals(value))
                 {
+                    // First, unsubscribe events
+                    _orderItems.ToList().ForEach(i => i.PropertyChanged -= I_PropertyChanged);
+                    // Assign new collection
                     _orderItems = value;
+                    // Subscribe new objects to event handler
+                    _orderItems.ToList().ForEach(i => i.PropertyChanged += I_PropertyChanged);
+                    // Manually initiate new calculation
                     OrderItems_CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }
             }
+        }
+
+        private void I_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            CalculateSalesOrderSums();
         }
 
         public int TotalOrderItems
